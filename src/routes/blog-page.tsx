@@ -1,15 +1,39 @@
 
+import { BlogData } from "@/components/blog-card"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
+import { BE_URL } from "@/lib/api-config"
+import React, { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
 export default function Blog() {
+    const [blogData, setBlogData] = useState<BlogData>();
+    const { id } = useParams();
+    let formattedDate = "";
+    if (blogData?.createdAt) {
+        let date = new Date(blogData?.createdAt);
+        date.setMonth(date.getMonth() + 1);
+        formattedDate += date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: '2-digit' });
+
+    }
+
+    useEffect(() => {
+        getData();
+
+    }, []);
+    const getData = async () => {
+        const data = await fetch(`${BE_URL}/${id}`);
+        const dataResponse = await data.json();
+        console.log(dataResponse.data);
+        setBlogData(dataResponse.data)
+    }
     return (
         <div className="w-full max-w-4xl mx-auto py-12 px-4 md:px-6">
             <article className="prose prose-gray max-w-none dark:prose-invert">
                 <div className="space-y-4 not-prose">
                     <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
-                        Taxing Laughter: The Joke Tax Chronicles
+                        {blogData?.title}
                     </h1>
                     <div className="flex items-center gap-4">
                         <a href="#" className="flex items-center gap-2 text-sm font-medium" >
@@ -17,24 +41,15 @@ export default function Blog() {
                                 <img src="/placeholder.svg" alt="@shadcn" />
                                 <AvatarFallback>AC</AvatarFallback>
                             </Avatar>
-                            Acme Inc
+                           {blogData?.name}
                         </a>
-                        <div className="text-gray-500 dark:text-gray-400 text-sm">Posted on August 24, 2023</div>
+                        <div className="text-gray-500 dark:text-gray-400 text-sm">Posted on {formattedDate}</div>
                     </div>
                 </div>
-                <p>
-                    Once upon a time, in a far-off land, there was a very lazy king who spent all day lounging on his throne. One
-                    day, his advisors came to him with a problem: the kingdom was running out of money.
+                <p className="leading-7 [&:not(:first-child)]:mt-6">
+                    {blogData?.content}
                 </p>
-                <p>
-                    Jokester began sneaking into the castle in the middle of the night and leaving jokes all over the place: under
-                    the king&apos;s pillow, in his soup, even in the royal toilet. The king was furious, but he couldn&apos;t seem
-                    to stop Jokester.
-                </p>
-                <p>
-                    And then, one day, the people of the kingdom discovered that the jokes left by Jokester were so funny that
-                    they couldn&apos;t help but laugh. And once they started laughing, they couldn&apos;t stop.
-                </p>
+              
                 <figure className="lg:-mx-12 xl:-mx-20">
                     <img
                         src="/placeholder.svg"
@@ -49,13 +64,12 @@ export default function Blog() {
                     The king thought long and hard, and finally came up with
                     <a href="#">a brilliant plan</a>: he would tax the jokes in the kingdom.
                 </p>
-                <blockquote>
-                    &ldquo;After all,&rdquo; he said, &ldquo;everyone enjoys a good joke, so it&apos;s only fair that they should
-                    pay for the privilege.&rdquo;
+                <blockquote className="mt-6 border-l-4 border-card-foreground pl-6 italic">
+                    "After all," he said, "everyone enjoys a good joke, so it's only fair
+                    that they should pay for the privilege."
                 </blockquote>
-                <h3>The Joke Tax</h3>
-                <p>The king&apos;s subjects were not amused. They grumbled and complained, but the king was firm:</p>
-                <ul>
+                
+                <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>1st level of puns: 5 gold coins</li>
                     <li>2nd level of jokes: 10 gold coins</li>
                     <li>3rd level of one-liners : 20 gold coins</li>
@@ -64,6 +78,7 @@ export default function Blog() {
                     As a result, people stopped telling jokes, and the kingdom fell into a gloom. But there was one person who
                     refused to let the king&apos;s foolishness get him down: a court jester named Jokester.
                 </p>
+                
             </article>
             <div className="mt-12">
                 <h2 className="text-2xl font-bold mb-4">Comments</h2>
@@ -273,3 +288,4 @@ function ThumbsUpIcon(props) {
         </svg>
     )
 }
+

@@ -1,6 +1,35 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { BE_URL } from "./api-config";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+
+
+export async function authenticate(path: string, data: Record<string, any>) {
+  try {
+    let endpoint = path === "register" ? "/signUp" : "/signIn";
+    const response = await fetch(`${BE_URL}${endpoint}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    })
+    if (response.ok) {
+      const { data: token } = await response.json();
+      console.log(data);
+      if (typeof (data) != "undefined" && typeof (data) != "string") {
+        localStorage.setItem("token", token)
+      }
+    }
+    return response;
+  } catch (error) {
+    throw new Error("Your sign up request failed. Please try again..");
+
+  }
+
+}
+
+
