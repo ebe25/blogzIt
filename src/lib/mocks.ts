@@ -1,0 +1,282 @@
+export const Posts = [
+    {
+        id: "665cb13a0ec4b96789ba6a39",
+        content: "In this beginner's guide, we explore the power of Tailwind CSS, a utility-first CSS framework that allows you to quickly build custom user interfaces. We'll cover the basics of Tailwind, how to set it up, and some practical examples to get you started.",
+        title: "Getting Started with Tailwind CSS",
+        name: "Sanjay Singh",
+        createdAt: "2024-06-02T17:51:54.044+00:00",
+        updatedAt: "2024-06-02T17:51:54.044+00:00",
+        tags: ["CSS", "Web Development", "Tailwind CSS", "Beginner Guide"],
+        likes: 120,
+        comments: [
+            {
+                id: "1",
+                user: "Jane Doe",
+                comment: "Great guide! Helped me understand the basics of Tailwind CSS.",
+                createdAt: "2024-06-02T18:10:00.000+00:00"
+            },
+            {
+                id: "2",
+                user: "John Smith",
+                comment: "Very informative. Looking forward to more articles like this.",
+                createdAt: "2024-06-02T18:20:00.000+00:00"
+            }
+        ],
+        views: 1500,
+        authorBio: "Sanjay Singh is a web developer with over 10 years of experience in creating responsive and user-friendly web applications. He is passionate about teaching and sharing his knowledge with the community.",
+        category: "Web Development",
+        status: "published"
+    },
+    {
+        id: "675cb13a0ec4b96789ba6b40",
+        content: "JavaScript is a versatile language that allows developers to create dynamic and interactive web applications. This guide covers advanced concepts such as closures, callbacks, and promises.",
+        title: "Advanced JavaScript Techniques",
+        name: "Aisha Patel",
+        createdAt: "2024-05-20T14:30:10.123+00:00",
+        updatedAt: "2024-05-20T14:30:10.123+00:00",
+        tags: ["JavaScript", "Programming", "Web Development"],
+        likes: 200,
+        comments: [
+            {
+                id: "3",
+                user: "Alice Johnson",
+                comment: "This article helped me understand promises much better.",
+                createdAt: "2024-05-20T15:00:00.000+00:00"
+            },
+            {
+                id: "4",
+                user: "Bob Brown",
+                comment: "Closures have always been confusing for me. Thanks for the clear explanations!",
+                createdAt: "2024-05-20T15:30:00.000+00:00"
+            }
+        ],
+        views: 2500,
+        authorBio: "Aisha Patel is a senior JavaScript developer with a passion for teaching others how to write clean and efficient code.",
+        category: "Programming",
+        status: "published"
+    },
+    {
+        id: "685cb13a0ec4b96789ba6c41",
+        content: "Learn the basics of React, a popular JavaScript library for building user interfaces. This guide will take you through components, state, and props, and show you how to create your first React app.",
+        title: "Introduction to React",
+        name: "James Lee",
+        createdAt: "2024-04-10T09:45:00.678+00:00",
+        updatedAt: "2024-04-10T09:45:00.678+00:00",
+        tags: ["React", "JavaScript", "Web Development"],
+        likes: 180,
+        comments: [
+            {
+                id: "5",
+                user: "Carol White",
+                comment: "This was a great introduction to React. Thank you!",
+                createdAt: "2024-04-10T10:00:00.000+00:00"
+            },
+            {
+                id: "6",
+                user: "Dave Black",
+                comment: "React seems much less intimidating now.",
+                createdAt: "2024-04-10T10:30:00.000+00:00"
+            }
+        ],
+        views: 2200,
+        authorBio: "James Lee is a full-stack developer with expertise in front-end technologies, particularly React.",
+        category: "Web Development",
+        status: "published"
+    },
+    {
+        id: "695cb13a0ec4b96789ba6d42",
+        content: "Discover the powerful features of Python 3 and how you can use it to automate tasks, build applications, and analyze data. This guide covers basic to intermediate concepts with practical examples.",
+        title: "Mastering Python 3",
+        name: "Maria Gonzalez",
+        createdAt: "2024-03-15T12:20:30.456+00:00",
+        updatedAt: "2024-03-15T12:20:30.456+00:00",
+        tags: ["Python", "Programming", "Data Analysis"],
+        likes: 220,
+        comments: [
+            {
+                id: "7",
+                user: "Eve Davis",
+                comment: "Python has always been a mystery to me. This guide cleared up a lot!",
+                createdAt: "2024-03-15T13:00:00.000+00:00"
+            },
+            {
+                id: "8",
+                user: "Frank Harris",
+                comment: "I appreciate the practical examples. Very helpful.",
+                createdAt: "2024-03-15T13:30:00.000+00:00"
+            }
+        ],
+        views: 3000,
+        authorBio: "Maria Gonzalez is a data scientist and Python enthusiast who loves sharing her knowledge through writing and teaching.",
+        category: "Programming",
+        status: "draft"
+    },
+    {
+        id: "705cb13a0ec4b96789ba6e43",
+        content: "Git and GitHub are essential tools for modern development. This guide will teach you the basics of version control, how to use Git commands, and how to collaborate on projects using GitHub.",
+        title: "Version Control with Git and GitHub",
+        name: "Liam Nguyen",
+        createdAt: "2024-02-25T16:40:20.789+00:00",
+        updatedAt: "2024-02-25T16:40:20.789+00:00",
+        tags: ["Git", "GitHub", "Version Control"],
+        likes: 150,
+        comments: [
+            {
+                id: "9",
+                user: "Grace Martinez",
+                comment: "I've been using Git for a while, but this guide introduced me to new features.",
+                createdAt: "2024-02-25T17:00:00.000+00:00"
+            },
+            {
+                id: "10",
+                user: "Henry Wilson",
+                comment: "Collaborating on GitHub seems much easier now.",
+                createdAt: "2024-02-25T17:30:00.000+00:00"
+            }
+        ],
+        views: 1700,
+        authorBio: "Liam Nguyen is a software engineer with expertise in version control systems and collaborative development workflows.",
+        category: "Development Tools",
+        status: "draft"
+    },
+    {
+        id: "715cb13a0ec4b96789ba6f44",
+        content: "Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. This guide covers the fundamentals of Django and how to build a simple web application.",
+        title: "Building Web Applications with Django",
+        name: "Olivia Kim",
+        createdAt: "2024-01-30T10:10:10.111+00:00",
+        updatedAt: "2024-01-30T10:10:10.111+00:00",
+        tags: ["Django", "Python", "Web Development"],
+        likes: 190,
+        comments: [
+            {
+                id: "11",
+                user: "Isaac Clark",
+                comment: "Django seems less daunting after reading this guide.",
+                createdAt: "2024-01-30T10:30:00.000+00:00"
+            },
+            {
+                id: "12",
+                user: "Judy Scott",
+                comment: "I managed to build my first Django app thanks to this tutorial.",
+                createdAt: "2024-01-30T11:00:00.000+00:00"
+            }
+        ],
+        views: 2300,
+        authorBio: "Olivia Kim is a web developer specializing in Python and Django, with a focus on creating scalable and maintainable applications.",
+        category: "Web Development",
+        status: "draft"
+    },
+    {
+        id: "725cb13a0ec4b96789ba7045",
+        content: "Vue.js is a progressive JavaScript framework for building user interfaces. This guide provides an overview of Vue's core concepts, including the virtual DOM, reactive data binding, and components.",
+        title: "Understanding Vue.js",
+        name: "Sophia Liu",
+        createdAt: "2023-12-20T08:15:25.789+00:00",
+        updatedAt: "2023-12-20T08:15:25.789+00:00",
+        tags: ["Vue.js", "JavaScript", "Web Development"],
+        likes: 170,
+        comments: [
+            {
+                id: "13",
+                user: "Kevin Moore",
+                comment: "Vue.js seems really powerful. Thanks for the introduction!",
+                createdAt: "2023-12-20T09:00:00.000+00:00"
+            },
+            {
+                id: "14",
+                user: "Laura Walker",
+                comment: "I appreciate the clear explanations of reactive data binding.",
+                createdAt: "2023-12-20T09:30:00.000+00:00"
+            }
+        ],
+        views: 2100,
+        authorBio: "Sophia Liu is a front-end developer with extensive experience in Vue.js and other modern JavaScript frameworks.",
+        category: "Web Development",
+        status: "draft"
+    },
+    {
+        id: "735cb13a0ec4b96789ba7146",
+        content: "Machine learning is a rapidly growing field with applications in various domains. This guide introduces the basic concepts of machine learning, including supervised and unsupervised learning, and common algorithms.",
+        title: "Introduction to Machine Learning",
+        name: "Benjamin Wright",
+        createdAt: "2023-11-15T13:50:45.333+00:00",
+        updatedAt: "2023-11-15T13:50:45.333+00:00",
+        tags: ["Machine Learning", "AI", "Data Science"],
+        likes: 250,
+        comments: [
+            {
+                id: "15",
+                user: "Nina Turner",
+                comment: "This guide made machine learning concepts much more approachable.",
+                createdAt: "2023-11-15T14:20:00.000+00:00"
+            },
+            {
+                id: "16",
+                user: "Oscar Phillips",
+                comment: "Great introduction to supervised and unsupervised learning.",
+                createdAt: "2023-11-15T14:50:00.000+00:00"
+            }
+        ],
+        views: 3200,
+        authorBio: "Benjamin Wright is a data scientist with expertise in machine learning and artificial intelligence, focusing on practical applications and educational content.",
+        category: "Data Science",
+        status: "published"
+    },
+    {
+        id: "745cb13a0ec4b96789ba7247",
+        content: "Angular is a platform for building mobile and desktop web applications. This guide covers Angular's key features, including components, services, and dependency injection, and shows how to build a basic application.",
+        title: "Getting Started with Angular",
+        name: "Emily Davis",
+        createdAt: "2023-10-10T11:25:30.567+00:00",
+        updatedAt: "2023-10-10T11:25:30.567+00:00",
+        tags: ["Angular", "JavaScript", "Web Development"],
+        likes: 140,
+        comments: [
+            {
+                id: "17",
+                user: "Peter Parker",
+                comment: "Angular seems complicated, but this guide breaks it down well.",
+                createdAt: "2023-10-10T12:00:00.000+00:00"
+            },
+            {
+                id: "18",
+                user: "Rachel Adams",
+                comment: "Thanks for the step-by-step instructions on building an app.",
+                createdAt: "2023-10-10T12:30:00.000+00:00"
+            }
+        ],
+        views: 1800,
+        authorBio: "Emily Davis is a software engineer with a passion for Angular and front-end development, dedicated to creating high-performance web applications.",
+        category: "Web Development",
+        status: "published"
+    },
+    {
+        id: "755cb13a0ec4b96789ba7348",
+        content: "SQL is a standard language for managing and manipulating databases. This guide provides an introduction to SQL, covering basic queries, joins, and database design principles.",
+        title: "Introduction to SQL",
+        name: "Michael Thompson",
+        createdAt: "2023-09-05T15:35:40.789+00:00",
+        updatedAt: "2023-09-05T15:35:40.789+00:00",
+        tags: ["SQL", "Databases", "Data Management"],
+        likes: 160,
+        comments: [
+            {
+                id: "19",
+                user: "Sarah Lee",
+                comment: "This was a great refresher on SQL basics.",
+                createdAt: "2023-09-05T16:00:00.000+00:00"
+            },
+            {
+                id: "20",
+                user: "Tommy Martinez",
+                comment: "I finally understand how joins work. Thanks!",
+                createdAt: "2023-09-05T16:30:00.000+00:00"
+            }
+        ],
+        views: 2000,
+        authorBio: "Michael Thompson is a database administrator with extensive experience in SQL and data management, focusing on optimizing database performance and design.",
+        category: "Data Management",
+        status: "published"
+    }
+];

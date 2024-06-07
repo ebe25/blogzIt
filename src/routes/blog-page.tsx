@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom"
 
 export default function Blog() {
     const [blogData, setBlogData] = useState<BlogData>();
-    const { id } = useParams();
+    let { blogId } = useParams();
     let formattedDate = "";
     if (blogData?.createdAt) {
         let date = new Date(blogData?.createdAt);
@@ -23,7 +23,8 @@ export default function Blog() {
 
     }, []);
     const getData = async () => {
-        const data = await fetch(`${BE_URL}/${id}`);
+        console.log("blog-id",blogId);
+        const data = await fetch(`${BE_URL}/blogs/${blogId}`);
         const dataResponse = await data.json();
         console.log(dataResponse.data);
         setBlogData(dataResponse.data)
@@ -41,7 +42,7 @@ export default function Blog() {
                                 <img src="/placeholder.svg" alt="@shadcn" />
                                 <AvatarFallback>AC</AvatarFallback>
                             </Avatar>
-                           {blogData?.name}
+                            {blogData?.name}
                         </a>
                         <div className="text-gray-500 dark:text-gray-400 text-sm">Posted on {formattedDate}</div>
                     </div>
@@ -49,7 +50,7 @@ export default function Blog() {
                 <p className="leading-7 [&:not(:first-child)]:mt-6">
                     {blogData?.content}
                 </p>
-              
+
                 <figure className="lg:-mx-12 xl:-mx-20">
                     <img
                         src="/placeholder.svg"
@@ -68,7 +69,7 @@ export default function Blog() {
                     "After all," he said, "everyone enjoys a good joke, so it's only fair
                     that they should pay for the privilege."
                 </blockquote>
-                
+
                 <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
                     <li>1st level of puns: 5 gold coins</li>
                     <li>2nd level of jokes: 10 gold coins</li>
@@ -78,7 +79,7 @@ export default function Blog() {
                     As a result, people stopped telling jokes, and the kingdom fell into a gloom. But there was one person who
                     refused to let the king&apos;s foolishness get him down: a court jester named Jokester.
                 </p>
-                
+
             </article>
             <div className="mt-12">
                 <h2 className="text-2xl font-bold mb-4">Comments</h2>
@@ -206,7 +207,7 @@ export default function Blog() {
     )
 }
 
-function ArrowUpIcon(props) {
+function ArrowUpIcon(props:any) {
     return (
         <svg
             {...props}
@@ -227,7 +228,7 @@ function ArrowUpIcon(props) {
 }
 
 
-function MessageCircleIcon(props) {
+function MessageCircleIcon(props:any) {
     return (
         <svg
             {...props}
@@ -247,7 +248,7 @@ function MessageCircleIcon(props) {
 }
 
 
-function MoveHorizontalIcon(props) {
+function MoveHorizontalIcon(props:any) {
     return (
         <svg
             {...props}
@@ -269,7 +270,7 @@ function MoveHorizontalIcon(props) {
 }
 
 
-function ThumbsUpIcon(props) {
+function ThumbsUpIcon(props:any) {
     return (
         <svg
             {...props}

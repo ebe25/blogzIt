@@ -2,7 +2,7 @@ import { UserIcon } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-function CalendarIcon(props) {
+function CalendarIcon(props:any) {
 
     return (
         <svg
@@ -48,34 +48,37 @@ function BlogCard({ data }: BlogProps) {
 
     return (
         <>
-            <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
-                <img
-                    src="src/assets/placeholder.png"
-                    width={400}
-                    height={200}
-                    alt="Blog post cover"
-                    className="w-full h-48 object-cover"
-                />
-                <div className="p-4 md:p-6">
-                    <h2 className="text-xl font-bold mb-2">
+            <Link to={`blogs/${_id}`}>
+                <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
+                    <img
+                        src="src/assets/placeholder.png"
+                        width={400}
+                        height={200}
+                        alt="Blog post cover"
+                        className="w-full h-48 object-cover"
+                    />
+                    <div className="p-4 md:p-6">
+                        <h2 className="text-xl font-bold mb-2">
 
-                        <Link to={`blogs/${_id}`}>{title}</Link>
+                            {title}
 
-                    </h2>
-                    <p className="text-gray-500 dark:text-gray-400 line-clamp-3 mb-4">
-                        {
-                            content
-                        }
-                    </p>
-                    <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                        <UserIcon className="w-4 h-4 mr-2" />
-                        <span>{name}</span>
-                        <span className="mx-2">·</span>
-                        <CalendarIcon className="w-4 h-4 mr-2" />
-                        <span>{formattedDate}</span>
+                        </h2>
+                        <p className="text-gray-500 dark:text-gray-400 line-clamp-3 mb-4">
+                            {
+                                content
+                            }
+                        </p>
+                        <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                            <UserIcon className="w-4 h-4 mr-2" />
+                            <span>{name}</span>
+                            <span className="mx-2">·</span>
+                            <CalendarIcon className="w-4 h-4 mr-2" />
+                            <span>{formattedDate}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Link>
+
 
 
         </>

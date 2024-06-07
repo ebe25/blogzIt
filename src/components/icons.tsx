@@ -1,4 +1,5 @@
 import {
+  Activity,
     AlertTriangle,
     ArrowRight,
     Check,
@@ -52,6 +53,7 @@ import {
     moon: Moon,
     laptop: Laptop,
     eye: Eye,
+    actions: Activity,
     gitHub: ({ ...props }: LucideProps) => (
       <svg
         aria-hidden="true"
