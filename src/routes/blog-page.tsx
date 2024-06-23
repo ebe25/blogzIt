@@ -24,10 +24,9 @@ export default function Blog() {
 
     }, []);
     const getData = async () => {
-        console.log("blog-id", blogId);
+        
         const data = await fetch(`${BE_URL}/blogs/${blogId}`);
         const dataResponse = await data.json();
-        console.log(dataResponse.data);
         setBlogData(dataResponse.data)
     }
     return (

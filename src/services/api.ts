@@ -10,6 +10,7 @@ export const api = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
         baseUrl: BE_URL,
+        // credentials: 'include',
         prepareHeaders: (headers, { getState }) => {
             // this step is done as i need to send out token in each request
             const token = (getState() as RootState).auth.userToken;
@@ -25,21 +26,28 @@ export const api = createApi({
         }),
         login: builder.mutation({
             query: creds => ({
-                url: "/user/login",
+                url: "/users/login",
                 method: "POST",
                 body: { ...creds }
             })
         }),
-        userDetails: builder.mutation({
-            query: username => ({
-                url: `/users/${username},
-                method: "POST`,
-                body: username
+        registerUser: builder.mutation({
+            query: creds => ({
+                url: "/users/register",
+                method: "POST",
+                body: { ...creds }
+            })
+        }),
+        userDetails: builder.query({
+            query: email => ({
+                url: `/users?`,
+                params: {email}
+                
             })
         })
     })
-    
+
 
 })
 
-export const { useGetAllPostsQuery , useLoginMutation, useUserDetailsQuery} = api
+export const { useGetAllPostsQuery, useLoginMutation, useLazyUserDetailsQuery, useRegisterUserMutation } = api

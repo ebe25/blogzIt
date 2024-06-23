@@ -7,12 +7,12 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Sheet, SheetTrigger, SheetContent, SheetClose } from "@/components/ui/sheet"
 import { Link, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectCurrentUser } from "@/features/authSlice"
+import {  selectCurrentUser } from "@/features/authSlice"
 
 export default function Navbar() {
     const navigate = useNavigate();
     const user = useSelector(selectCurrentUser);
-    console.log("user", user?.userInfo)
+    
     return (
         <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md">
             <div className="container flex h-16 items-center justify-between px-4 md:px-6">
@@ -49,7 +49,7 @@ export default function Navbar() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-56">
-                            <DropdownMenuItem onClick={()=>navigate(`/dashboard/${user?.userInfo}`)}>
+                            <DropdownMenuItem onClick={()=>navigate(`/dashboard/${user._id}`)}>
                                 <UserIcon className="mr-2 h-4 w-4" />
                                 Profile
                             </DropdownMenuItem>

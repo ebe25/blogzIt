@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { authenticate, cn } from "@/lib/utils"
 import { userAuthSchema } from "@/lib/validations/auth"
 import { buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -16,8 +15,10 @@ import toast from 'react-hot-toast'
 import { useNavigate } from "react-router-dom"
 import { Toggle } from "./ui/toggle"
 import { useDispatch } from "react-redux"
-import { useLoginMutation, useUserDetailsQuery } from "@/services/api"
+import { useLoginMutation, useRegisterUserMutation, useLazyUserDetailsQuery } from "@/services/api"
 import { setCredentials } from "@/features/authSlice"
+import { cn } from "@/lib/utils"
+
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
     path: string
@@ -37,10 +38,12 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
     })
     const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
     const navigate = useNavigate();
-    const [togglePassword, setTogglePassword] = React.useState<boolean>(false);
+    const [togglePassword, setTogglePassword] = React.useState<boolean>(true);
     const dispatch = useDispatch();
     const [login, { isLoading: loginLoadingStatus }] = useLoginMutation();
-    const [userDetails, { isLoading: userDetailsStatus }] = useUserDetailsQuery();
+    const [registerUser] = useRegisterUserMutation();
+    const [fetchUserDetails] = useLazyUserDetailsQuery();
+
 
     React.useEffect(() => {
         if (isSubmitSuccessful) {
@@ -52,25 +55,38 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
 
         const username = data.email;
 
-        const { data: userData } = userDetails(username);
-        console.log("user-data", userData)
         try {
-            const { data: token } = await login(data).unwrap();
-            // console.log({user: username, accessToken: token})
-            dispatch(setCredentials({ user: username, accessToken: token }))
-            toast.success("Login successful")
-            setTimeout(() => {
-                navigate("/")
-            }, 2000);
+            if (path !== "register") {
+                const { data: userDetails, isLoading, isError } = await fetchUserDetails(username).unwrap();
+                console.log("userPayload", userDetails)
+                const { data: token } = await login(data).unwrap();
+                console.log("token", token)
+                dispatch(setCredentials({ user: userDetails, accessToken: token }))
+                toast.success("Login successful")
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000);
+            } else {
+
+                if (data.email && data.password) {
+                    await registerUser(data).unwrap();
+                    toast.success("User Registered Sucessfully!");
+                    setTimeout(() => {
+                        navigate("/login") //tyr adding a state of the pre filled user creds
+                    }, 2000);
+                }
+
+            }
+
         } catch (err) {
             if (!err?.response) {
-
                 toast.error("No server response!")
             } else if (err?.response?.status === 400) {
                 toast.error("Missing email or password")
             } else if (err?.response?.status === 401) {
                 toast.error("UnAuthorized");
             } else {
+                console.log(err)
                 toast.error("Login Failed!")
             }
         }
@@ -134,7 +150,11 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
                             disabled={loginLoadingStatus || isGitHubLoading}
                             {...register("password")}
                             icon={
-                                <Toggle><Icons.eye onClick={() => setTogglePassword(!togglePassword)} size={20} className=" cursor-pointer" /></Toggle>
+                                <Toggle><Icons.eye onClick={() => {
+                                    setTogglePassword(!togglePassword)
+
+                                }
+                                } size={20} className=" cursor-pointer" /></Toggle>
                             }
                         />
 

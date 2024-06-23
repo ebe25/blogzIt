@@ -20,14 +20,14 @@ function App() {
     <>
 
       <Routes>
-        <Route index path="/" element={<Home />} />
-        <Route path='/login' element={<LoginPage />} />
-        <Route path='/register' element={<RegisterPage />} />
-        <Route path='/profile/:userId' element={<Profile />} /> {/**It will be a public route */}
-        <Route path="/blogs/:blogId" element={<Blog />} />
+        <Route index path="/" element={<Home />} errorElement={<ErrorPage/>}/>
+        <Route path='/login' element={<LoginPage />}  errorElement={<ErrorPage/>}/>
+        <Route path='/register' element={<RegisterPage />} errorElement={<ErrorPage/>}/>
+        <Route path='/profile/:userId' element={<Profile />} errorElement={<ErrorPage/>}/> {/**It will be a public route */}
+        <Route path="/blogs/:blogId" element={<Blog />} errorElement={<ErrorPage/>}/>
 
         {/**Has to be a protected route . PRIVATE PROFILE*/}
-        <Route element={<GateKeeper />}>
+        <Route element={<GateKeeper />} errorElement={<ErrorPage/>} >
           
           <Route path='/dashboard/:userId' element={<Dashboard />} />
         </Route>
