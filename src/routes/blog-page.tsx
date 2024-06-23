@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { BE_URL } from "@/lib/api-config"
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export default function Blog() {
+    const navigate = useNavigate();
     const [blogData, setBlogData] = useState<BlogData>();
     let { blogId } = useParams();
     let formattedDate = "";
@@ -23,7 +24,7 @@ export default function Blog() {
 
     }, []);
     const getData = async () => {
-        console.log("blog-id",blogId);
+        console.log("blog-id", blogId);
         const data = await fetch(`${BE_URL}/blogs/${blogId}`);
         const dataResponse = await data.json();
         console.log(dataResponse.data);
@@ -36,10 +37,10 @@ export default function Blog() {
                     <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
                         {blogData?.title}
                     </h1>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4" onClick={()=>navigate(`/profile/${blogData?.userId}`)}>
                         <a href="#" className="flex items-center gap-2 text-sm font-medium" >
-                            <Avatar className="w-8 h-8 border">
-                                <img src="/placeholder.svg" alt="@shadcn" />
+                            <Avatar className="w-8 h-8 border border-black" >
+                                <AvatarImage src="https://avatar.iran.liara.run/public" />
                                 <AvatarFallback>AC</AvatarFallback>
                             </Avatar>
                             {blogData?.name}
@@ -207,7 +208,7 @@ export default function Blog() {
     )
 }
 
-function ArrowUpIcon(props:any) {
+function ArrowUpIcon(props: any) {
     return (
         <svg
             {...props}
@@ -228,7 +229,7 @@ function ArrowUpIcon(props:any) {
 }
 
 
-function MessageCircleIcon(props:any) {
+function MessageCircleIcon(props: any) {
     return (
         <svg
             {...props}
@@ -248,7 +249,7 @@ function MessageCircleIcon(props:any) {
 }
 
 
-function MoveHorizontalIcon(props:any) {
+function MoveHorizontalIcon(props: any) {
     return (
         <svg
             {...props}
@@ -270,7 +271,7 @@ function MoveHorizontalIcon(props:any) {
 }
 
 
-function ThumbsUpIcon(props:any) {
+function ThumbsUpIcon(props: any) {
     return (
         <svg
             {...props}

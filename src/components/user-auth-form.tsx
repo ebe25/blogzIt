@@ -15,6 +15,9 @@ import { Icons } from "@/components/icons"
 import toast from 'react-hot-toast'
 import { useNavigate } from "react-router-dom"
 import { Toggle } from "./ui/toggle"
+import { useDispatch } from "react-redux"
+import { useLoginMutation, useUserDetailsQuery } from "@/services/api"
+import { setCredentials } from "@/features/authSlice"
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
     path: string
@@ -32,38 +35,63 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
     } = useForm<FormData>({
         resolver: zodResolver(userAuthSchema),
     })
-    const [isLoading, setIsLoading] = React.useState<boolean>(false)
     const [isGitHubLoading, setIsGitHubLoading] = React.useState<boolean>(false)
     const navigate = useNavigate();
     const [togglePassword, setTogglePassword] = React.useState<boolean>(false);
+    const dispatch = useDispatch();
+    const [login, { isLoading: loginLoadingStatus }] = useLoginMutation();
+    const [userDetails, { isLoading: userDetailsStatus }] = useUserDetailsQuery();
 
     React.useEffect(() => {
         if (isSubmitSuccessful) {
             reset()
         }
-       
+
     }, [formState, reset]);
     async function onSubmit(data: FormData) {
-        console.log("creds",data)
-        setIsLoading(true)
-        toast.promise(
-            authenticate(path, data),
-            {
-                loading: 'Saving...',
-                success: (res) => {
-                    setIsLoading(false);
-                    if (res.status == 500) {
-                        throw new Error(res.statusText)
-                    }
-                    if (res.status == 200) {
-                        setTimeout(() => { path === "register" ? navigate("/login") : navigate("/") }, 2000)
-                    }
 
-                    return (path === "register" ? <b>We sent you a login link. Be sure to check your spam too.</b> : <b>Login Successful</b>)
-                },
-                error: (error) => <b>{error.message}</b>,
+        const username = data.email;
+
+        const { data: userData } = userDetails(username);
+        console.log("user-data", userData)
+        try {
+            const { data: token } = await login(data).unwrap();
+            // console.log({user: username, accessToken: token})
+            dispatch(setCredentials({ user: username, accessToken: token }))
+            toast.success("Login successful")
+            setTimeout(() => {
+                navigate("/")
+            }, 2000);
+        } catch (err) {
+            if (!err?.response) {
+
+                toast.error("No server response!")
+            } else if (err?.response?.status === 400) {
+                toast.error("Missing email or password")
+            } else if (err?.response?.status === 401) {
+                toast.error("UnAuthorized");
+            } else {
+                toast.error("Login Failed!")
             }
-        );
+        }
+        // toast.promise(
+        //     authenticate(path, data),
+        //     {
+        //         loading: 'Saving...',
+        //         success: (res) => {
+        //             setIsLoading(false);
+        //             if (res.status == 500) {
+        //                 throw new Error(res.statusText)
+        //             }
+        //             if (res.status == 200) {
+        //                 setTimeout(() => { path === "register" ? navigate("/login") : navigate("/") }, 2000)
+        //             }
+
+        //             return (path === "register" ? <b>We sent you a login link. Be sure to check your spam too.</b> : <b>Login Successful</b>)
+        //         },
+        //         error: (error) => <b>{error.message}</b>,
+        //     }
+        // );
 
 
     }
@@ -83,7 +111,7 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
-                            disabled={isLoading || isGitHubLoading}
+                            disabled={loginLoadingStatus || isGitHubLoading}
                             {...register("email")}
                         />
                         {errors?.email && (
@@ -103,7 +131,7 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
                             type={togglePassword ? "password" : "text"}
                             autoCapitalize="none"
                             autoCorrect="off"
-                            disabled={isLoading || isGitHubLoading}
+                            disabled={loginLoadingStatus || isGitHubLoading}
                             {...register("password")}
                             icon={
                                 <Toggle><Icons.eye onClick={() => setTogglePassword(!togglePassword)} size={20} className=" cursor-pointer" /></Toggle>
@@ -117,8 +145,8 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
                             </p>
                         )}
                     </div>
-                    <button className={cn(buttonVariants())} disabled={isLoading}>
-                        {isLoading && (
+                    <button className={cn(buttonVariants())} disabled={loginLoadingStatus}>
+                        {loginLoadingStatus && (
                             <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
                         )}
                         Sign In with Email
@@ -142,7 +170,7 @@ export function UserAuthForm({ className, path, ...props }: UserAuthFormProps) {
                     setIsGitHubLoading(true)
                     //   signIn("github")
                 }}
-                disabled={isLoading || isGitHubLoading}
+                disabled={loginLoadingStatus || isGitHubLoading}
             >
                 {isGitHubLoading ? (
                     <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />

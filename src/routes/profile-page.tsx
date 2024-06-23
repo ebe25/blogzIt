@@ -5,11 +5,11 @@ import { Card, CardContent, CardTitle, CardFooter } from "@/components/ui/card"
 
 export default function Profile() {
     return (
-        <div className="container mx-auto px-4 md:px-6 py-12">
+        <div className="container mx-auto px-4 md:px-6 py-12 bg-gray-200">
             <div className="grid md:grid-cols-[180px_1fr] gap-8 items-start">
                 <div className="flex flex-col items-center gap-4">
                     <Avatar className="w-32 h-32 border-4 border-gray-200 dark:border-gray-800 shadow-lg">
-                        <img src="/placeholder.svg" alt="@shadcn" />
+                    <AvatarImage src="https://avatar.iran.liara.run/public" />
                         <AvatarFallback>JD</AvatarFallback>
                     </Avatar>
                     <div className="text-center">
@@ -29,7 +29,7 @@ export default function Profile() {
                     <div>
                         <h2 className="text-xl font-bold mb-4">Blog Posts</h2>
                         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-                            <Card className="shadow-md hover:shadow-xl transition-shadow">
+                            <Card className="shadow-md hover:shadow-xl transition-shadow cursor-pointer">
                                 <div className="relative overflow-hidden rounded-t-lg">
                                     <img
                                         src="/placeholder.svg"

@@ -156,7 +156,7 @@ export default function Dashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {Posts.map((post) => {
+                  {/* {Posts.map((post) => {
                     return (
                       <TableRow key={post.id}>
                         <TableCell className="font-medium">
@@ -199,8 +199,8 @@ export default function Dashboard() {
                         </TableCell>
                       </TableRow>
                     )
-                  })}
-
+                  })} */}
+                  {null}
                 </TableBody>
               </Table>
             </div>

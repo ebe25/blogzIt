@@ -2,7 +2,7 @@ import { UserIcon } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-function CalendarIcon(props:any) {
+function CalendarIcon(props: any) {
 
     return (
         <svg
@@ -31,27 +31,24 @@ export type BlogData = {
     name?: string;
     createdAt?: Date;
     _id?: string
+    picture:string;
 }
 interface BlogProps {
     data: BlogData
 }
 function BlogCard({ data }: BlogProps) {
-    console.log("blogs");
-    const { content, userId, title, name, createdAt, _id } = data;
+   
+    const { content, userId, title, name, createdAt, _id, picture } = data;
     let date = new Date(createdAt as Date);
-
-
     date.setMonth(date.getMonth() + 1);
-
     let formattedDate = date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: '2-digit' });
-    console.log("formattedDate", formattedDate);
 
     return (
         <>
             <Link to={`blogs/${_id}`}>
                 <div className="bg-gray-100 dark:bg-gray-800 rounded-lg overflow-hidden">
                     <img
-                        src="src/assets/placeholder.png"
+                        src={picture}
                         width={400}
                         height={200}
                         alt="Blog post cover"

@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export async function authenticate(path: string, data: Record<string, any>) {
   try {
-    let endpoint = path === "register" ? "/signUp" : "/signIn";
+    let endpoint = path === "register" ? "/register" : "/login";
     const response = await fetch(`${BE_URL}${endpoint}`, {
       method: "POST",
       headers: {
@@ -19,7 +19,6 @@ export async function authenticate(path: string, data: Record<string, any>) {
     })
     if (response.ok) {
       const { data: token } = await response.json();
-      console.log(data);
       if (typeof (data) != "undefined" && typeof (data) != "string") {
         localStorage.setItem("token", token)
       }
