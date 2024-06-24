@@ -1,7 +1,7 @@
 import { Comment } from "./comment";
 
 export type Post = {
-    id: string;
+    _id: string;
     content: string;
     title: string;
     name: string;
@@ -9,8 +9,9 @@ export type Post = {
     likes: number;
     comments: Comment[];
     views: number;
-    authorBio: string;
+    author: string;
     category: string;
     status: string;
     picture: string;
+    createdAt: Date;
 };

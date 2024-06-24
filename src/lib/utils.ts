@@ -31,4 +31,15 @@ export async function authenticate(path: string, data: Record<string, any>) {
 
 }
 
+export const stitchCasing = (str: string) => {
+  let casing = str.split(" ")
+  return casing.map((str) => str[0].toUpperCase() + str.substring(1)).join(" ")
 
+}
+export const formatDate = (createdAt: Date ) => {
+  let formattedDate = "";
+  let date = new Date(createdAt);
+  date.setMonth(date.getMonth() + 1);
+  return formattedDate += date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: '2-digit' });
+
+}

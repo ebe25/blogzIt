@@ -1,3 +1,4 @@
+import { formatDate } from '@/lib/utils';
 import { UserIcon } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom';
@@ -29,19 +30,17 @@ export type BlogData = {
     userId?: string;
     title?: string;
     name?: string;
-    createdAt?: Date;
+    createdAt: Date;
     _id?: string
-    picture:string;
+    picture: string;
 }
 interface BlogProps {
     data: BlogData
 }
 function BlogCard({ data }: BlogProps) {
-   
+
     const { content, userId, title, name, createdAt, _id, picture } = data;
-    let date = new Date(createdAt as Date);
-    date.setMonth(date.getMonth() + 1);
-    let formattedDate = date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: '2-digit' });
+
 
     return (
         <>
@@ -70,7 +69,7 @@ function BlogCard({ data }: BlogProps) {
                             <span>{name}</span>
                             <span className="mx-2">·</span>
                             <CalendarIcon className="w-4 h-4 mr-2" />
-                            <span>{formattedDate}</span>
+                            <span>{formatDate(createdAt)}</span>
                         </div>
                     </div>
                 </div>

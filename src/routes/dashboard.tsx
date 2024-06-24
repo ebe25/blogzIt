@@ -1,37 +1,28 @@
 
 
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
-  Card,
-  CardContent,
-  CardDescription, CardHeader,
-  CardTitle
-} from "@/components/ui/card"
-import {
-  DropdownMenu, DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import {
   Table,
-  TableBody,
-  TableCell,
-  TableHead,
+  TableBody, TableCell, TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "@/components/ui/table"
 import Modal from "@/components/modal"
 import { Link, useNavigate } from "react-router-dom"
-import { Posts } from "@/lib/mocks"
 import { Icons } from "@/components/icons"
+import { useGetUserBlogsQuery } from "@/services/api"
 import { BE_URL } from "@/lib/api-config"
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@radix-ui/react-dropdown-menu"
+import { Badge } from "@/components/ui/badge"
+import { stitchCasing } from "@/lib/utils"
+import { Post } from "@/lib/types/post"
+import ErrorPage from "./error-page"
+
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const { data: Posts, isLoading, error, isError } = useGetUserBlogsQuery(undefined);
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
@@ -39,8 +30,8 @@ export default function Dashboard() {
           <div className="flex h-full max-h-screen flex-col gap-2 ">
             <div className="flex h-[60px] items-center border-b  shadow-lg px-6">
               <Link to={"/"} className="flex items-center gap-2 font-semibold" >
-              <HomeIcon className="h-4 w-4" />
-                <span className="">   
+                <HomeIcon className="h-4 w-4" />
+                <span className="">
                   Dashboard</span>
               </Link>
               <Button variant="outline" size="icon" className="ml-auto h-8 w-8">
@@ -84,60 +75,11 @@ export default function Dashboard() {
                 </Link>
               </nav>
             </div>
-            {/* <div className="mt-auto p-4">
-              <Card>
-                <CardHeader className="pb-4">
-                  <CardTitle>Upgrade to Pro</CardTitle>
-                  <CardDescription>Unlock all features and get unlimited access to our support team</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button size="sm" className="w-full">
-                    Upgrade
-                  </Button>
-                </CardContent>
-              </Card>
-            </div> */}
+
           </div>
         </div>
         <div className="flex flex-col">
-          {/* <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
-            <Link to={"/"} className="lg:hidden" >
-              <BookIcon className="h-6 w-6" />
-              <span className="sr-only">Dashboard</span>
-            </Link>
-            <div className="w-full flex-1">
-              <form>
-                <div className="relative">
-                  <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
-                  <Input
-                    type="search"
-                    placeholder="Search posts..."
-                    className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950"
-                  />
-                </div>
-              </form>
-            </div>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-                >
-                  <img src="/placeholder.svg" width="32" height="32" className="rounded-full" alt="Avatar" />
-                  <span className="sr-only">Toggle user menu</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Support</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </header> */}
+
           <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
             <div className="flex items-center">
               <h1 className="font-semibold text-lg md:text-2xl">Posts</h1>
@@ -156,16 +98,17 @@ export default function Dashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {/* {Posts.map((post) => {
+                  {isLoading && <>loading...</>}
+                  {Posts?.data.map((post: Post) => {
                     return (
-                      <TableRow key={post.id}>
+                      <TableRow key={post._id}>
                         <TableCell className="font-medium">
-                          <Link to={`/blogs/${post.id}`} className="hover:underline cursor-pointer">
-                            {post.title}
-                          </Link>
+                          <p className={"mb-2 text-lg text-gray-700 dark:text-gray-400 hover:underline cursor-pointer"} onClick={() => navigate(`/blogs/${post._id}`)}>
+                            {stitchCasing(post.title)}
+                          </p>
                         </TableCell>
                         <TableCell className="hidden md:table-cell">
-                          {new Date(post.createdAt).toLocaleString("en-GB", {
+                          {new Date(post.createdAt as Date).toLocaleString("en-GB", {
 
                             year: "numeric",
                             month: "short",
@@ -173,8 +116,10 @@ export default function Dashboard() {
                           })}
                         </TableCell>
                         <TableCell className="hidden md:table-cell">
-                          <Badge variant={"outline"} status={post.status} className={`hover:cursor-pointer text-md ${post.status === "published" ? "bg-green-400" : "bg-yellow-400"}`}>{post.status.toUpperCase()}</Badge>
+                          <Badge variant="outline" status={post.status} className={`hover:cursor-pointer text-md ${post.status === "published" ? "bg-green-400" : "bg-yellow-400"}`}>{post.status.toUpperCase()}</Badge>
                         </TableCell>
+
+
                         <TableCell className="text-right">
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
@@ -184,7 +129,7 @@ export default function Dashboard() {
                               </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className=" font-bold bg-zinc-200 hover:cursor-pointer" >
-                              <DropdownMenuItem className="bg-blue-100 hover:cursor-pointer" onClick={() => navigate(`${BE_URL}/blogs/${post.id}`)}>View</DropdownMenuItem>
+                              <DropdownMenuItem className="bg-blue-100 hover:cursor-pointer" onClick={() => navigate(`${BE_URL}/blogs/${post._id}`)}>View</DropdownMenuItem>
                               <DropdownMenuItem className="bg-yellow-300 hover:cursor-pointer" onClick={() =>
                                 //open edit modal
                                 null
@@ -199,8 +144,8 @@ export default function Dashboard() {
                         </TableCell>
                       </TableRow>
                     )
-                  })} */}
-                  {null}
+                  })}
+
                 </TableBody>
               </Table>
             </div>

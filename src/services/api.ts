@@ -1,3 +1,5 @@
+import { BlogData } from '@/components/blog-card';
+
 
 
 import { BE_URL } from '@/lib/api-config';
@@ -20,20 +22,22 @@ export const api = createApi({
             return headers;
         }
     }),
+    tagTypes: ['Post', 'User'],
     endpoints: (builder) => ({
         getAllPosts: builder.query({
-            query: () => `blogs`
+            query: () => `blogs`,
+            providesTags: ['Post'],
         }),
         login: builder.mutation({
             query: creds => ({
-                url: "/users/login",
+                url: "users/login",
                 method: "POST",
                 body: { ...creds }
             })
         }),
         registerUser: builder.mutation({
             query: creds => ({
-                url: "/users/register",
+                url: "users/register",
                 method: "POST",
                 body: { ...creds }
             })
@@ -41,13 +45,21 @@ export const api = createApi({
         userDetails: builder.query({
             query: email => ({
                 url: `/users?`,
-                params: {email}
-                
+                params: { email }
+
             })
+        }),
+        getUserBlogs: builder.query({
+            query: () => 'blogs/',
+        }),
+        getBlog: builder.query({
+            query: (id) => `blogs/${id}`
         })
+
     })
 
 
 })
 
-export const { useGetAllPostsQuery, useLoginMutation, useLazyUserDetailsQuery, useRegisterUserMutation } = api
+export const { useGetAllPostsQuery, useLoginMutation, useGetUserBlogsQuery, useLazyUserDetailsQuery, useGetBlogQuery,
+    useRegisterUserMutation } = api

@@ -19,7 +19,7 @@ export default function Home() {
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {
               posts?.data.length > 0 && posts?.data.map((blog: Post) => {
-                return <BlogCard data={blog} />
+                return <BlogCard data={blog} key={blog._id}/>
               })
 
             }

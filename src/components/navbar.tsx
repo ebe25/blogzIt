@@ -49,7 +49,7 @@ export default function Navbar() {
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end" className="w-56">
-                            <DropdownMenuItem onClick={()=>navigate(`/dashboard/${user._id}`)}>
+                            <DropdownMenuItem onClick={()=>navigate(`/dashboard/${user?._id}`)}>
                                 <UserIcon className="mr-2 h-4 w-4" />
                                 Profile
                             </DropdownMenuItem>
