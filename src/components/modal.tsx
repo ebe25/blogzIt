@@ -18,9 +18,9 @@ export default function Modal() {
             </CredenzaTrigger>
             <CredenzaContent>
                 <CredenzaHeader>
-                    <CredenzaTitle>Credenza</CredenzaTitle>
+                    <CredenzaTitle>Title here</CredenzaTitle>
                     <CredenzaDescription>
-                        A responsive modal component for shadcn/ui.
+                        create blog Form
                     </CredenzaDescription>
                 </CredenzaHeader>
                 <CredenzaBody>

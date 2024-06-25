@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
-const GateKeeper: React.FC = () => {
+const AuthRequired: React.FC = () => {
   //  const token =useSelector(selectCurrentToken) //make sure that if i have token avilable i should have the user's obj as well
   // const {userInfo} = useSelector(selectCurrentUser)
   const token = useSelector(selectCurrentToken); 
@@ -18,4 +18,4 @@ const GateKeeper: React.FC = () => {
   )
 }
 
-export default GateKeeper
+export default AuthRequired

@@ -8,7 +8,7 @@ import App from './App.tsx';
 import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store.ts';
-import GateKeeper from './components/GateKeeper.tsx';
+import GateKeeper from './components/AuthRequired.tsx';
 import Blog from './routes/blog-page.tsx';
 import Dashboard from './routes/dashboard.tsx';
 import ErrorPage from './routes/error-page.tsx';
@@ -16,6 +16,7 @@ import LoginPage from './routes/login-page.tsx';
 import Profile from './routes/profile-page.tsx';
 import RegisterPage from './routes/register-page.tsx';
 import Home from './routes/home.tsx';
+import AuthRequired from './components/AuthRequired.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,11 +28,12 @@ const router = createBrowserRouter(
       < Route path="/blogs/:blogId" element={< Blog />} errorElement={< ErrorPage />} />
 
       {/**Has to be a protected route . PRIVATE PROFILE*/}
-      <Route element={<GateKeeper />} errorElement={<ErrorPage />} >
+      <Route element={<AuthRequired />} errorElement={<ErrorPage />} >
 
         <Route path='/dashboard/:userId' element={<Dashboard />} />
       </Route>
-      <Route /></>
+      <Route />
+      </>
 
   ))
 

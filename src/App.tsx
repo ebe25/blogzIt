@@ -7,7 +7,7 @@ import Dashboard from './routes/dashboard';
 import Profile from './routes/profile-page';
 import Blog from './routes/blog-page';
 import ErrorPage from './routes/error-page';
-import GateKeeper from './components/GateKeeper';
+import GateKeeper from './components/AuthRequired';
 
 
 const router = createBrowserRouter(

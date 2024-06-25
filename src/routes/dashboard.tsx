@@ -1,5 +1,4 @@
 
-
 import { Button } from "@/components/ui/button"
 import {
   Table,
@@ -12,11 +11,13 @@ import { Link, useNavigate } from "react-router-dom"
 import { Icons } from "@/components/icons"
 import { useGetUserBlogsQuery } from "@/services/api"
 import { BE_URL } from "@/lib/api-config"
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@radix-ui/react-dropdown-menu"
 import { Badge } from "@/components/ui/badge"
 import { stitchCasing } from "@/lib/utils"
 import { Post } from "@/lib/types/post"
 import ErrorPage from "./error-page"
+import { Cloud, CreditCard, Delete, Edit, Github, Keyboard, LifeBuoy, LogOut, Mail, MessageSquare, MoreHorizontal, Plus, PlusCircle, Settings, User, UserPlus, Users, View } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import ProfileModal from "@/components/modals/ProfileModal"
 
 
 export default function Dashboard() {
@@ -57,22 +58,10 @@ export default function Dashboard() {
                   <CirclePlusIcon className="h-4 w-4" />
                   New Post
                 </Link>
-                <Link
-                  to={"/"}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
 
-                >
-                  <UserIcon className="h-4 w-4" />
-                  Profile
-                </Link>
-                <Link
-                  to={"/"}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                <ProfileModal />
 
-                >
-                  <Icons.settings className="h-4 w-4" />
-                  Settings
-                </Link>
+
               </nav>
             </div>
 
@@ -83,9 +72,9 @@ export default function Dashboard() {
           <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
             <div className="flex items-center">
               <h1 className="font-semibold text-lg md:text-2xl">Posts</h1>
-              <Link to={"/"} className="ml-auto btn btn-primary btn-sm" >
+              <div className="ml-auto btn btn-primary btn-sm" >
                 <Modal />
-              </Link>
+              </div>
             </div>
             <div className="border-2 shadow-xl rounded-lg">
               <Table className="  shadow-xl cursor-pointer ">
@@ -119,28 +108,33 @@ export default function Dashboard() {
                           <Badge variant="outline" status={post.status} className={`hover:cursor-pointer text-md ${post.status === "published" ? "bg-green-400" : "bg-yellow-400"}`}>{post.status.toUpperCase()}</Badge>
                         </TableCell>
 
-
-                        <TableCell className="text-right">
-                          <DropdownMenu>
+                        <TableCell >
+                          <DropdownMenu >
                             <DropdownMenuTrigger asChild>
-                              <Button variant="secondary" size="icon">
-                                <Icons.actions className="w-4 h-4" />
-                                <span className="sr-only">Actions</span>
+                              <Button variant="outline">
+                                <Icons.actions className="h-4 w-4" />
+
                               </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className=" font-bold bg-zinc-200 hover:cursor-pointer" >
-                              <DropdownMenuItem className="bg-blue-100 hover:cursor-pointer" onClick={() => navigate(`${BE_URL}/blogs/${post._id}`)}>View</DropdownMenuItem>
-                              <DropdownMenuItem className="bg-yellow-300 hover:cursor-pointer" onClick={() =>
-                                //open edit modal
-                                null
-                              }>Edit</DropdownMenuItem>
-                              <DropdownMenuItem className="bg-red-500 hover:cursor-pointer"
-                                onClick={() => //open delte confirmation modal
-                                  null
-                                }
-                              >Delete</DropdownMenuItem>
+                            <DropdownMenuContent >
+
+                              <DropdownMenuSeparator />
+                              <DropdownMenuItem>
+                                <Edit className="mr-2 h-4 w-4" />
+                                <span>Edit</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <View className="mr-2 h-4 w-4" />
+                                <span>View</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <Delete className="mr-2 h-4 w-4" />
+                                <span>Delete</span>
+                                {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
+                              </DropdownMenuItem>
                             </DropdownMenuContent>
                           </DropdownMenu>
+
                         </TableCell>
                       </TableRow>
                     )
