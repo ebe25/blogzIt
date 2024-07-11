@@ -1,11 +1,15 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import type { Config } from "tailwindcss";
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+ 
+const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -17,6 +21,38 @@ module.exports = {
       },
     },
     extend: {
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              fontWeight: "400",
+              fontSize: "42px !important",
+              paddingTop: "16px !important",
+              marginTop: "0px !important",
+              marginBottom: "0px !important",
+            },
+            h2: {
+              fontSize: "34px !important",
+              marginTop: "56px !important",
+              marginBottom: "0px !important",
+            },
+            h3: {
+              fontSize: "26px !important",
+              marginTop: "31px !important",
+              marginBottom: "0px !important",
+            },
+            p: {
+              fontSize: "21px !important",
+              marginTop: "29px !important",
+              marginBottom: "0px !important",
+            },
+            hr: {
+              marginTop: "52px !important",
+              marginBottom: "42px !important",
+            },
+          },
+        },
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -73,5 +109,18 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography"), addVariablesForColors],
+} satisfies Config;
+
+export default config;
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+ 
+  addBase({
+    ":root": newVars,
+  });
 }

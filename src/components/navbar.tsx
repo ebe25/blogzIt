@@ -43,7 +43,7 @@ export default function Navbar() {
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" size="icon" className="rounded-full">
                                 <Avatar className="h-12 w-12 border border-black">
-                                    <AvatarImage src="https://avatar.iran.liara.run/public" />
+                                    <AvatarImage src="https://picsum.photos/200" />
                                     <AvatarFallback>JD</AvatarFallback>
                                 </Avatar>
                             </Button>

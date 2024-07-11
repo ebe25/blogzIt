@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import "./globals.css";
+import "./globals.css"
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { Toaster } from 'react-hot-toast';
 import App from './App.tsx';
@@ -17,6 +17,7 @@ import Profile from './routes/profile-page.tsx';
 import RegisterPage from './routes/register-page.tsx';
 import Home from './routes/home.tsx';
 import AuthRequired from './components/AuthRequired.tsx';
+import CreateBlogPage from './routes/CreateBlogPage.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +30,7 @@ const router = createBrowserRouter(
 
       {/**Has to be a protected route . PRIVATE PROFILE*/}
       <Route element={<AuthRequired />} errorElement={<ErrorPage />} >
-
+        <Route path = "/blogs/create" element = {<CreateBlogPage/>}/>
         <Route path='/dashboard/:userId' element={<Dashboard />} />
       </Route>
       <Route />

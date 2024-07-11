@@ -7,7 +7,7 @@ import { Post } from "@/lib/types/post";
 export default function Home() {
 
   const { data: posts, isLoading, isError } = useGetAllPostsQuery(undefined)
-
+ 
   if (isLoading) return <h2>Loading...</h2>; //chore add loading states components 
   if (isError) return <h2>Something went wrong...</h2>; //chore add to error boundary
 

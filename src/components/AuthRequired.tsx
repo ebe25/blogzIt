@@ -9,7 +9,7 @@ const AuthRequired: React.FC = () => {
   const token = useSelector(selectCurrentToken); 
   const user = useSelector(selectCurrentUser);
 
-
+  //todo ==== add a token expiration logic here 
   const location = useLocation();
   // console.log("gatekeeper", accessToken, userInfo)
   return (

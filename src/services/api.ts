@@ -1,9 +1,6 @@
-import { BlogData } from '@/components/blog-card';
-
-
+import { JSONContent } from '@tiptap/react';
 
 import { BE_URL } from '@/lib/api-config';
-import { Post } from '@/lib/types/post';
 import { RootState } from '@/store';
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
@@ -54,6 +51,13 @@ export const api = createApi({
         }),
         getBlog: builder.query({
             query: (id) => `blogs/${id}`
+        }),
+        createBlog: builder.mutation<JSONContent, {}>({
+            query: body => ({
+                url: "blogs/create",
+                method: "POST",
+                body: body
+            })
         })
 
     })
@@ -61,5 +65,11 @@ export const api = createApi({
 
 })
 
-export const { useGetAllPostsQuery, useLoginMutation, useGetUserBlogsQuery, useLazyUserDetailsQuery, useGetBlogQuery,
-    useRegisterUserMutation } = api
+export const {
+    useGetAllPostsQuery,
+    useLoginMutation,
+    useGetUserBlogsQuery,
+    useLazyUserDetailsQuery,
+    useGetBlogQuery,
+    useRegisterUserMutation,
+    useCreateBlogMutation } = api
