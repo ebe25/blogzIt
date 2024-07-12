@@ -10,6 +10,7 @@ import { useCreateBlogMutation } from '@/services/api'
 import ErrorPage from './error-page'
 import { listImages, processImages, storeImages } from '@/utils/process-imgs-to-s3'
 import { SUPABASE_BASE_PUB_URL } from '@/lib/api-config'
+import StoryPreview from '@/components/StoryPreview'
 
 
 const CreateBlogPage = () => {
@@ -81,6 +82,7 @@ const CreateBlogPage = () => {
                             }}>
                                 Publish
                             </Button>
+                            <StoryPreview/>
                             <Button variant="ghost" size="icon" className="rounded-full">
                                 <Avatar className="h-12 w-12 border border-black">
                                     <AvatarImage src="https://avatar.iran.liara.run/public" />
