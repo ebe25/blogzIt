@@ -23,6 +23,7 @@ import ProfileModal from "@/components/modals/ProfileModal"
 export default function Dashboard() {
   const navigate = useNavigate();
   const { data: Posts, isLoading, error, isError } = useGetUserBlogsQuery(undefined);
+  console.log("posts", Posts?.data)
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">

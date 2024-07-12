@@ -26,7 +26,7 @@ function CalendarIcon(props: any) {
     )
 }
 export type BlogData = {
-    content?: string;
+    content?: Record<string, any> | string;
     userId?: string;
     title?: string;
     name?: string;
@@ -37,10 +37,16 @@ export type BlogData = {
 interface BlogProps {
     data: BlogData
 }
+
+
 function BlogCard({ data }: BlogProps) {
 
     const { content, userId, title, name, createdAt, _id, picture } = data;
-
+    let contentText = "";
+    if (Array.isArray(content) && content.length > 1) {
+        contentText = content.filter((item) => item.content).flatMap((subContent) => subContent.content).map((text) => text.text).join("")
+    }
+    
 
     return (
         <>
@@ -59,11 +65,9 @@ function BlogCard({ data }: BlogProps) {
                             {title}
 
                         </h2>
-                        <p className="text-gray-500 dark:text-gray-400 line-clamp-3 mb-4">
-                            {
-                                content
-                            }
-                        </p>
+
+                        {Array.isArray(content) && content.length > 1 ? <p className="text-gray-500 dark:text-gray-400 line-clamp-3 mb-4">{contentText} </p> : <p className="text-gray-500 dark:text-gray-400 line-clamp-3 mb-4">{content as string}</p>}
+
                         <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
                             <UserIcon className="w-4 h-4 mr-2" />
                             <span>{name}</span>

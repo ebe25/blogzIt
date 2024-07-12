@@ -32,6 +32,7 @@ export async function authenticate(path: string, data: Record<string, any>) {
 }
 
 export const stitchCasing = (str: string) => {
+  str = str.trim()
   let casing = str.split(" ")
   return casing.map((str) => str[0].toUpperCase() + str.substring(1)).join(" ")
 
