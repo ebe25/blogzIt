@@ -1,25 +1,30 @@
 import {
+    useCallback,
+    useContext,
+    useEffect,
     useState
 } from 'react';
 import {
     Tag,
     TagInput
 } from 'emblor';
+import BlogTagsContext from '@/context/BlogTagsContext';
 
 const MultiTagInput = () => {
-    const tags = [
-        {
-            "id": "967139614",
-            "text": "Sports"
-        },
-        {
-            "id": "3013044852",
-            "text": "Programming"
-        }
-    ];
     const [exampleTags, setExampleTags] = useState<Tag[]>([]);
     const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null);
 
+    const blogTagsSubscription = useContext(BlogTagsContext);
+
+    const persistRenderBlogTags = useCallback(()=>{
+        blogTagsSubscription?.setBlogTags(exampleTags);
+
+    }, [blogTagsSubscription,exampleTags])
+
+
+    useEffect(() => {
+        persistRenderBlogTags();
+    }, [exampleTags]);
     return (<
         TagInput tags={
             exampleTags

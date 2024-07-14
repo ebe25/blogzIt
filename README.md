@@ -3,14 +3,15 @@
 **CRUD on user-blogs:**
 
 - [x] Configure Tiptap inspiration meditor [link](https://meditor.pages.dev/)
-  - [] Navigate: With an object ID once a new blog is clicked on, use that as the blogId
+  - [x] Navigate: With an object ID once a new blog is clicked on, use that as the blogId
   - **Tags:**
-    - [] Once "publish" is clicked, a sheet/drawer appears.
-    - [] The left side shows the blog card preview, the **STORY PREVIEW**:
-      - [] Preview image: By default, use the first image in the editor.
-      - [] **Story Title:** **<bold>Limit 100 characters, then ...</bold>**
-      - [] **Story content:** **<bold>Limit of 135 characters, then ...</bold>**
-    - [ ] The right side, A multi-select select box allows the author to choose tags related to the blog.
+    - [x] Once "publish" is clicked, a sheet/drawer appears.
+    - [X] The left side shows the blog card preview, the **STORY PREVIEW**:
+      - [X] Preview image: By default, use the first image in the editor.
+      - [X] **Story Title:** **<bold>Limit 100 characters, then ...</bold>**
+      - [X] **Story content:** **<bold>Limit of 135 characters, then ...</bold>**
+    - [X] The right side, A multi-select select box allows the author to choose tags related to the blog.
+    --[] Populate the left side with preview image and dynamic title and content-summary
   - **Images:** Supabase object store
     - [] Read all the images from DB
 - [ ] Update/Edit: Frontend (DRAFT FEATURE)

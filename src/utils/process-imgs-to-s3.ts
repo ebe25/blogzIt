@@ -39,28 +39,15 @@ export function processImages(imagesToProcess: JSONContent[]) {
 
 }
 
-export async function storeImages(imgFile: File, blogName: string) {
+export async function storeImages(imgFile: File, blogName: string ) {
     try {
         const response = await supabase.storage.from(import.meta.env.VITE_SUPABASE_BUCKET).upload(`${blogName}/${imgFile.name}`, imgFile, { contentType: imgFile.type })
-        return response;
+        return response.data;
     } catch (error) {
         console.log("error while uplaoding to obj store", error);
         throw error;
     }
 }
 
-export async function listImages(projectFolder: string) {
-    try {
-        const { data } = supabase
-        .storage
-        .from(import.meta.env.VITE_SUPABASE_BUCKET)
-        .getPublicUrl('firstBlog!/blog-image-2')
 
-        console.log("pub URL", data);
-    } catch (error) {
-        console.log("error", error)
-        throw error;
-    }
-
-}
 

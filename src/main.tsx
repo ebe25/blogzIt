@@ -18,6 +18,7 @@ import RegisterPage from './routes/register-page.tsx';
 import Home from './routes/home.tsx';
 import AuthRequired from './components/AuthRequired.tsx';
 import CreateBlogPage from './routes/CreateBlogPage.tsx';
+import BlogTagsProvider from './context/BlogTagsProvider.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +31,7 @@ const router = createBrowserRouter(
 
       {/**Has to be a protected route . PRIVATE PROFILE*/}
       <Route element={<AuthRequired />} errorElement={<ErrorPage />} >
-        <Route path = "/blogs/create" element = {<CreateBlogPage/>}/>
+        <Route path = "/blogs/create/:blogId" element = {<CreateBlogPage/>}/>
         <Route path='/dashboard/:userId' element={<Dashboard />} />
       </Route>
       <Route />
@@ -43,7 +44,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Toaster />
     <TooltipProvider>
       <Provider store={store}>
+        <BlogTagsProvider>
         <RouterProvider router={router} />
+        </BlogTagsProvider>
+        
       </Provider>
     </TooltipProvider>
 

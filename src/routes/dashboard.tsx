@@ -10,20 +10,28 @@ import Modal from "@/components/modal"
 import { Link, useNavigate } from "react-router-dom"
 import { Icons } from "@/components/icons"
 import { useGetUserBlogsQuery } from "@/services/api"
-import { BE_URL } from "@/lib/api-config"
 import { Badge } from "@/components/ui/badge"
-import { stitchCasing } from "@/lib/utils"
+import { generateObjectId, stitchCasing } from "@/lib/utils"
 import { Post } from "@/lib/types/post"
-import ErrorPage from "./error-page"
-import { Cloud, CreditCard, Delete, Edit, Github, Keyboard, LifeBuoy, LogOut, Mail, MessageSquare, MoreHorizontal, Plus, PlusCircle, Settings, User, UserPlus, Users, View } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Delete, Edit, View } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import ProfileModal from "@/components/modals/ProfileModal"
-
+import { useState, useEffect } from "react"
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const { data: Posts, isLoading, error, isError } = useGetUserBlogsQuery(undefined);
   console.log("posts", Posts?.data)
+  const [newBlogId, setNewBlogId] = useState<string | null>(null);
+
+  useEffect(() => {
+    let _id = generateObjectId();
+    setNewBlogId(_id);
+    return () => {
+      setNewBlogId(null)
+    }
+  }, [])
+
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
@@ -52,7 +60,7 @@ export default function Dashboard() {
                   Posts
                 </Link>
                 <Link
-                  to={"/blogs/create"}
+                  to={`/blogs/create/${newBlogId}`}
                   className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
 
                 >

@@ -117,8 +117,7 @@ const Meditor = ({ setMeditorData }: MeditorProps) => {
     editor.commands.focus();
 
     if (jsonContent !== null && jsonContent?.content !== null) {   //naive refactor later
-      console.log("setting the content ", jsonContent.content)
-      setMeditorData(jsonContent?.content);
+      setMeditorData(jsonContent?.content as JSONContent[]);
     }
   }, [editor, jsonContent]);
 

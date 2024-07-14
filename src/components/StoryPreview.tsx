@@ -20,7 +20,7 @@ const StoryPreview = (
         <Drawer>
             <DrawerTrigger>Open</DrawerTrigger>
             <DrawerContent>
-                <div className="flex justify-center gap-6 max-h-screen m-4">
+                <div className="flex justify-center gap-6 m-4">
                     <Card className="max-w-prose drop-shadow-xl">
                         <CardTitle className="p-6 m-auto">  Story Preview</CardTitle>
 

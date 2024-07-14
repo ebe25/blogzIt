@@ -37,10 +37,20 @@ export const stitchCasing = (str: string) => {
   return casing.map((str) => str[0].toUpperCase() + str.substring(1)).join(" ")
 
 }
-export const formatDate = (createdAt: Date ) => {
+export const formatDate = (createdAt: Date) => {
   let formattedDate = "";
   let date = new Date(createdAt);
   date.setMonth(date.getMonth() + 1);
   return formattedDate += date.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: '2-digit' });
 
+}
+
+
+export function generateObjectId() {
+  const timestamp = Math.floor(new Date().getTime() / 1000).toString(16);
+  const objectId = timestamp + 'xxxxxxxxxxxxxxxx'.replace(/[x]/g, () => {
+    return Math.floor(Math.random() * 16).toString(16);
+  }).toLowerCase();
+
+  return objectId;
 }
